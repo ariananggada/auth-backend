@@ -9,7 +9,6 @@ use diesel::prelude::*;
 use diesel::r2d2::{self, ConnectionManager};
 
 mod auth_handler;
-mod email_service;
 mod errors;
 mod invitation_handler;
 mod models;

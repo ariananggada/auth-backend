@@ -4,7 +4,8 @@ extern crate diesel;
 extern crate serde_derive;
 
 use actix_identity::{CookieIdentityPolicy, IdentityService};
-use actix_web::{middleware, web, App, HttpServer};
+use actix_web::{http::header, middleware, web, App, HttpServer};
+use actix_cors::Cors;
 use diesel::prelude::*;
 use diesel::r2d2::{self, ConnectionManager};
 
@@ -15,6 +16,8 @@ mod models;
 mod register_handler;
 mod schema;
 mod utils;
+
+extern crate jsonwebtoken as jwt;
 
 fn main() -> std::io::Result<()> {
     dotenv::dotenv().ok();
@@ -32,6 +35,12 @@ fn main() -> std::io::Result<()> {
     // Start http server
     HttpServer::new(move || {
         App::new()
+            .wrap(
+                Cors::new()
+                    .allowed_origin("http://localhost:3000")
+                    .allowed_methods(vec!["GET", "POST", "DELETE", "PUT", "PATCH", "OPTIONS"])
+                    .max_age(3600),
+            )
             .data(pool.clone())
             // enable logger
             .wrap(middleware::Logger::default())
@@ -62,6 +71,6 @@ fn main() -> std::io::Result<()> {
                     ),
             )
     })
-    .bind("127.0.0.1:3000")?
+    .bind("127.0.0.1:4000")?
     .run()
 }

@@ -7,6 +7,7 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+actix-cors = "0.1.0"
 actix-identity = "0.1.0"
 actix-web = "1.0.3"
 argonautica = "0.2.0"
@@ -16,6 +17,7 @@ diesel = { version = "1.4.2", features = ["postgres","uuidv07", "r2d2", "chrono"
 dotenv = "0.14.1"
 env_logger = "0.6"
 futures = "0.1"
+jsonwebtoken = "6.0.1"
 r2d2 = "0.8"
 lazy_static = "1.3.0"
 serde = "1.0"
